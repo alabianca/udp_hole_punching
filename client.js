@@ -2,7 +2,7 @@ const net = require('net');
 const username = process.argv[2];
 const port = process.argv[3];
 const dgram = require('dgram');
-const server = dgram.createSocket('udp6');
+const server = dgram.createSocket('udp4');
 
 
 

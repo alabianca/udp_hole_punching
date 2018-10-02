@@ -11,11 +11,11 @@ const server = net.createServer(s => {
 
 const udp = dgram.createSocket('udp4');
 
-server.on('listening', ()=>{
+udp.on('listening', ()=>{
     console.log('UDP started up...');
 });
 
-server.on('message', (msg,rinfo)=>{
+udp.on('message', (msg,rinfo)=>{
     console.log("Message from: ", rinfo.port);
     console.log("Message from: ", rinfo.address);
 
@@ -24,3 +24,4 @@ server.on('message', (msg,rinfo)=>{
 
 
 server.listen(8080);
+udp.bind(41234);
