@@ -16,7 +16,11 @@ server.on('listening', () => {
         const data = JSON.parse(d.toString());
         switch(data.type){
             case('connectRequest'):
-                console.log(data);
+                    console.log(data);
+                break;
+            case('ack'):
+                    console.log(data);
+                break;
 
         }
     })
@@ -42,6 +46,11 @@ function sendData(socket, type, payload) {
         type: type,
         payload: payload
     }))
+}
+
+function sendUdpPacket(socket, data) {
+  const buf = Buffer.from(data);
+  socket.send(buf,41234, '159.89.152.225');
 }
 
 server.bind(port);
