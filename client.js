@@ -2,7 +2,7 @@ const net = require('net');
 const username = process.argv[2];
 const port = process.argv[3];
 const dgram = require('dgram');
-const server = dgram.createSocket('udp4');
+const server = dgram.createSocket('udp6');
 
 
 
@@ -20,6 +20,7 @@ server.on('listening', () => {
                 break;
             case('ack'):
                     console.log(data);
+                    ping();
                 break;
 
         }
@@ -51,6 +52,12 @@ function sendData(socket, type, payload) {
 function sendUdpPacket(socket, data) {
   const buf = Buffer.from(data);
   socket.send(buf,41234, '159.89.152.225');
+}
+
+function ping() {
+    setInterval(()=>{
+        sendUdpPacket(server,'hello world');
+    },2000)
 }
 
 server.bind(port);
