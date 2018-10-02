@@ -14,7 +14,7 @@ server.on('listening', () => {
 
     socket.on('data', d => {
         const data = JSON.parse(d.toString());
-        switch(data.payload){
+        switch(data.type){
             case('connectRequest'):
                 console.log(data);
 

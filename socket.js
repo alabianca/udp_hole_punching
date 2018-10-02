@@ -31,6 +31,7 @@ class Socket {
                         port: this.socket.remotePort,
                         socket: this.socket
                     }
+                    this.sendData(this.socket, 'ack', 'Hello World');
                     break;
             }
         })
