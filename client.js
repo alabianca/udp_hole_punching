@@ -8,7 +8,7 @@ const server = dgram.createSocket('udp4');
 
 server.on('listening', () => {
     const address = server.address();
-    const socket = net.createConnection({host: '138.68.12.66', port: 8080}, ()=>{
+    const socket = net.createConnection({host: '159.89.152.225', port: 8080}, ()=>{
         sendData(socket, "setUser", username);
     });
 
