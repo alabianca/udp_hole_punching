@@ -5,7 +5,7 @@ class Socket {
         this.onData();
         this.onClose();
         this.intervalId = null;
-        this.printUsers();
+        //this.printUsers();
 
     }
 

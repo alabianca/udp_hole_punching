@@ -13,6 +13,9 @@ const udp = dgram.createSocket('udp4');
 
 udp.on('listening', ()=>{
     console.log('UDP started up...');
+    setInterval(()=>{
+        printUsers();
+    }, 7000)
 });
 
 udp.on('message', (msg,rinfo)=>{
@@ -26,7 +29,19 @@ udp.on('message', (msg,rinfo)=>{
         users[username].udpPort = rinfo.port;
         users[username].host    = rinfo.address;
     }
-})
+});
+
+
+function printUsers() {
+    for(let key in users) {
+        console.log('User: ', users[key].username);
+        console.log('Host (UDP): ', users[key].host);
+        console.log('PORT (UDP): ', users[key].udpPort);
+        console.log('IP (TCP): ', users[key].ip );
+        console.log('PORT (TCP): ', users[key].port);
+    }
+    console.log('--------------------------------------');
+}
 
 
 server.listen(8080);
