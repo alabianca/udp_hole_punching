@@ -3,7 +3,7 @@ const username = process.argv[2];
 const port = process.argv[3];
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
-
+const peer = {};
 
 
 server.on('listening', () => {
@@ -16,12 +16,19 @@ server.on('listening', () => {
         const data = JSON.parse(d.toString());
         switch(data.type){
             case('connectRequest'):
-                    console.log(data);
+                    peer.host = data.payload.host;
+                    peer.port = data.payload.port;
+                    peer.username = data.payload.username;
+                    holepunch(socket);
                 break;
             case('ack'):
                     console.log(data);
                     ping();
                 break;
+            case('hpAck'):
+                peer.host = data.payload.ip;
+                peer.port = data.payload.port;
+                pingPeer();
 
         }
     })
@@ -35,7 +42,7 @@ server.on('listening', () => {
 })
 
 server.on('message', (msg, rinfo) => {
-
+    console.log('UDP MESSAGE FROM: ', rinfo.address, rinfo.port);
 })
 
 function getData(data) {
@@ -61,6 +68,22 @@ function ping() {
     setInterval(()=>{
         sendUdpPacket(server,msg);
     },10000)
+}
+
+function holepunch(socket) {
+    sendData(socket,'hpAck', {
+        target:peer.username,
+        initiator: username
+    });
+    const buf = Buffer.from("Hello Peer");
+    server.send(buf,peer.port,peer.host);
+}
+
+function pingPeer() {
+    setInterval(()=>{
+        const buf = Buffer.from("Hello Peer");
+        server.send(buf,peer.port,peer.host);
+    },2000);
 }
 
 server.bind(port);

@@ -15,12 +15,12 @@ udp.on('listening', ()=>{
     console.log('UDP started up...');
     setInterval(()=>{
         printUsers();
-    }, 7000)
+    }, 15000)
 });
 
 udp.on('message', (msg,rinfo)=>{
-    console.log("Message from: ", rinfo.port);
-    console.log("Message from: ", rinfo.address);
+    // console.log("Message from: ", rinfo.port);
+    // console.log("Message from: ", rinfo.address);
 
     const message = msg.toString();
     const username = message.split(':')[1];

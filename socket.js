@@ -17,10 +17,11 @@ class Socket {
                     const user = this.users[query.payload];
         
                     if (user) {
-                        console.log(user);
+                        //console.log(user);
                         this.sendData(user.socket, 'connectRequest', {
                             host: this.users[this.username].host,
-                            port: this.users[this.username].udpPort
+                            port: this.users[this.username].udpPort,
+                            username: this.username
                         })
                     }
                     break;
@@ -33,6 +34,19 @@ class Socket {
                     }
                     this.sendData(this.socket, 'ack', 'Hello World');
                     break;
+                case ('hpAck'):
+                    const user = this.users[query.payload.target];
+                    const initiator = this.users[query.payload.initiator];
+                    console.log('hpAck');
+                    console.log("TARGET: ", user.host, user.udpPort);
+                    console.log("INITIATOR: ", initiator.host, initiator.udpPort);
+                    if(user && initiator) {
+                        //console.log('hpAck: ', user.host, user.port);
+                        this.sendData(user.socket, 'hpAck', {
+                            ip: initiator.host,
+                            port: initiator.udpPort
+                        });
+                    }
             }
         })
     }
