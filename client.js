@@ -19,6 +19,7 @@ server.on('listening', () => {
                     peer.host = data.payload.host;
                     peer.port = data.payload.port;
                     peer.username = data.payload.username;
+                    console.log('Holepunching .... ', peer.host, peer.port);
                     holepunch(socket);
                 break;
             case('ack'):
@@ -28,6 +29,7 @@ server.on('listening', () => {
             case('hpAck'):
                 peer.host = data.payload.ip;
                 peer.port = data.payload.port;
+                console.log('Starting to ping peer .... ', peer.host, peer.port);
                 pingPeer();
 
         }
