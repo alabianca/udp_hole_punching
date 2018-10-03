@@ -19,8 +19,8 @@ class Socket {
                     if (user) {
                         console.log(user);
                         this.sendData(user.socket, 'connectRequest', {
-                            host: this.socket.remoteAddress,
-                            port: this.socket.port
+                            host: this.users[this.username].host,
+                            port: this.users[this.username].udpPort
                         })
                     }
                     break;
