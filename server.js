@@ -34,7 +34,7 @@ udp.on('message', (msg,rinfo)=>{
 
 function printUsers() {
     for(let key in users) {
-        console.log('User: ', users[key].username);
+        console.log('User: ', key);
         console.log('Host (UDP): ', users[key].host);
         console.log('PORT (UDP): ', users[key].udpPort);
         console.log('IP (TCP): ', users[key].ip );
