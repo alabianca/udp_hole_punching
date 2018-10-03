@@ -35,14 +35,14 @@ class Socket {
                     this.sendData(this.socket, 'ack', 'Hello World');
                     break;
                 case ('hpAck'):
-                    const user = this.users[query.payload.target];
+                    const target = this.users[query.payload.target];
                     const initiator = this.users[query.payload.initiator];
                     console.log('hpAck');
-                    console.log("TARGET: ", user.host, user.udpPort);
+                    console.log("TARGET: ", target.host, target.udpPort);
                     console.log("INITIATOR: ", initiator.host, initiator.udpPort);
-                    if(user && initiator) {
+                    if(target && initiator) {
                         //console.log('hpAck: ', user.host, user.port);
-                        this.sendData(user.socket, 'hpAck', {
+                        this.sendData(target.socket, 'hpAck', {
                             ip: initiator.host,
                             port: initiator.udpPort
                         });
