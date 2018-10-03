@@ -55,9 +55,12 @@ function sendUdpPacket(socket, data) {
 }
 
 function ping() {
+    const msg = 'PING:'+username;
+    sendUdpPacket(server,msg);
+    //reping every
     setInterval(()=>{
-        sendUdpPacket(server,'hello world');
-    },2000)
+        sendUdpPacket(server,msg);
+    },10000)
 }
 
 server.bind(port);
