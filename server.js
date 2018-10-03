@@ -19,7 +19,7 @@ udp.on('message', (msg,rinfo)=>{
     console.log("Message from: ", rinfo.port);
     console.log("Message from: ", rinfo.address);
 
-    const message = msg.toStriong();
+    const message = msg.toString();
     const username = message.split(':')[1];
 
     if(users[username]) {
